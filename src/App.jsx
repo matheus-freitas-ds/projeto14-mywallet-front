@@ -4,17 +4,25 @@ import HomePage from "./pages/HomePage"
 import SignInPage from "./pages/SignInPage"
 import SignUpPage from "./pages/SignUpPage"
 import TransactionsPage from "./pages/TransactionPage"
+import { useState } from "react"
+import { UserContext } from "./contexts/UserContext"
 
 export default function App() {
+
+  const [token, setToken] = useState(localStorage.getItem("token"))
+  const [userName, setUserName] = useState(localStorage.getItem("userName"))
+
   return (
     <PagesContainer>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<SignInPage />} />
-          <Route path="/cadastro" element={<SignUpPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/nova-transacao/:tipo" element={<TransactionsPage />} />
-        </Routes>
+        <UserContext.Provider value={{ token, setToken, userName, setUserName }}>
+          <Routes>
+            <Route path="/" element={<SignInPage />} />
+            <Route path="/cadastro" element={<SignUpPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/nova-transacao/:tipo" element={<TransactionsPage />} />
+          </Routes>
+        </UserContext.Provider>
       </BrowserRouter>
     </PagesContainer>
   )

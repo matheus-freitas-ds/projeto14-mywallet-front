@@ -2,13 +2,15 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 import MyWalletLogo from "../components/MyWalletLogo"
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { UserContext } from "../contexts/UserContext"
 
 export default function SignInPage() {
 
   const navigate = useNavigate()
   const [login, setLogin] = useState({})
+  const { setToken, setUserName } = useContext(UserContext)
 
   const handleChange = (event) => {
     const name = event.target.name
@@ -24,7 +26,13 @@ export default function SignInPage() {
 
   function signIn() {
     axios.post(`${import.meta.env.VITE_API_URL}/`, login)
-      .then(res => navigate("/home"))
+      .then(res => {
+        setToken(res.data.token)
+        setUserName(res.data.userName)
+        localStorage.setItem("token", res.data.token)
+        localStorage.setItem("userName", res.data.userName)
+        navigate("/home")
+      })
       .catch(err => alert(err.response.data))
   }
 
