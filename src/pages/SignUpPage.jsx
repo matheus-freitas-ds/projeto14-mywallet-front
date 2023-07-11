@@ -2,10 +2,12 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import axios from "axios"
 import MyWalletLogo from "../components/MyWalletLogo"
-import { useState, useNavigate } from "react"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function SignUpPage() {
-
+  
+  const navigate = useNavigate()
   const [cadastro, setCadastro] = useState({})
 
   const handleChange = (event) => {
@@ -24,7 +26,7 @@ export default function SignUpPage() {
 
   function signUp() {
     axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, cadastro)
-      .then(res => useNavigate("/"))
+      .then(res => navigate("/"))
       .catch(err => alert(err.response.data))
   }
   
