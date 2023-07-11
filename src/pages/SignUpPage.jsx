@@ -36,11 +36,11 @@ export default function SignUpPage() {
     <SingUpContainer>
       <form onSubmit={handleSubmit}>
         <MyWalletLogo />
-        <input required placeholder="Nome" type="text" name="name" value={cadastro.name || ""} onChange={handleChange} />
-        <input required placeholder="E-mail" type="email" name="email" value={cadastro.email || ""} onChange={handleChange} />
-        <input required minLength={3} placeholder="Senha" type="password" autoComplete="new-password" name="password" value={cadastro.password || ""} onChange={handleChange} />
-        <input required placeholder="Confirme a senha" type="password" autoComplete="new-password" name="confirmPassword" value={cadastro.confirmPassword || ""} onChange={handleChange} />
-        <button type="submit">Cadastrar</button>
+        <input data-test="name" required placeholder="Nome" type="text" name="name" value={cadastro.name || ""} onChange={handleChange} />
+        <input data-test="email" required placeholder="E-mail" type="email" name="email" value={cadastro.email || ""} onChange={handleChange} />
+        <input data-test="password" required minLength={3} placeholder="Senha" type="password" autoComplete="new-password" name="password" value={cadastro.password || ""} onChange={handleChange} />
+        <input data-test="conf-password" required placeholder="Confirme a senha" type="password" autoComplete="new-password" name="confirmPassword" value={cadastro.confirmPassword || ""} onChange={handleChange} />
+        <button data-test="sign-up-submit" type="submit">Cadastrar</button>
       </form>
 
       <Link to="/">
