@@ -8,15 +8,6 @@ export default function SignUpPage() {
 
   const [cadastro, setCadastro] = useState({})
 
-  function signUp() {
-
-    return (post) => {
-      axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, post)
-        .then(res => useNavigate("/"))
-        .catch(err => alert(err.response.data))
-    }
-  }
-
   const handleChange = (event) => {
     const name = event.target.name
     const value = event.target.value
@@ -28,10 +19,15 @@ export default function SignUpPage() {
     if (cadastro.password !== cadastro.confirmPassword) return alert("confirme sua senha")
 
     delete cadastro.confirmPassword
-    signUp(cadastro)
-    console.log(cadastro)
+    signUp()
   }
 
+  function signUp() {
+    axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, cadastro)
+      .then(res => useNavigate("/"))
+      .catch(err => alert(err.response.data))
+  }
+  
   return (
     <SingUpContainer>
       <form onSubmit={handleSubmit}>
